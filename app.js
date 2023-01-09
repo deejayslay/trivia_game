@@ -46,6 +46,23 @@ function askForSelections(startForm, type, options) {
   selectionLabel.insertAdjacentElement("afterend", select);
 }
 
+function playGame(data) {
+  let question = document.createElement("p");
+  for (let e of data) {
+    // display question
+    question.innerText = e.question;
+    game.insertAdjacentElement("beforeend", question);
+    const shuffledAnswers = [];
+    for (let i of e.incorrect_answers) {
+      shuffledAnswers.push(i);
+    }
+    shuffledAnswers.push(e.correct_answer);
+    // display answers
+    shuffledAnswers.sort((a, b) => 0.5 - Math.random());
+    console.log(shuffledAnswers);
+  }
+}
+
 readyForm.addEventListener("submit", function (e) {
   e.preventDefault();
   titleQuestion.remove();
@@ -107,11 +124,11 @@ game.addEventListener("submit", async function (e) {
     } else {
       formatSelection = "boolean";
     }
-    console.log(difficultySelection);
-    console.log(formatSelection);
     const res = await axios.get(
-      `https://opentdb.com/api.php?amount=10&category=${categorySelection}&difficulty=${difficultySelection}&type=${formatSelection}`
+      `https://opentdb.com/api.php?amount=10&category=${categorySelection}&difficulty=${difficultySelection}&type=${formatSelection}&`
     );
-    console.log(res.data);
+    // trivia starts here
+    console.log(res.data.results);
+    playGame(res.data.results);
   }
 });
