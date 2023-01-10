@@ -1,6 +1,6 @@
 const readyForm = document.querySelector("#readyForm");
 const titleQuestion = document.querySelector("#titleQuestion");
-const titleDesc = document.querySelector("p");
+const titleDesc = document.querySelector("h2");
 const readyButton = document.querySelector("button");
 const game = document.querySelector("#game");
 
@@ -155,6 +155,7 @@ game.addEventListener("submit", async function (e) {
     let difficultySelection = document.querySelector("#difficulty");
     let formatSelection = document.querySelector("#format");
     const startForm = document.querySelector("#startForm");
+    titleDesc.remove();
     startForm.remove();
     // make API HTTP request
     // set category selection to category number in url
