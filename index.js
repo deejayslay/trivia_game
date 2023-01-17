@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const axios = require("axios");
 // const request = require("request");
 // const api_helper = require("./API_helper");
 
@@ -17,10 +18,22 @@ app.get("/readyForm", (req, res) => {
   res.render("readyForm");
 });
 
-app.get("/trivia", (req, res) => {
+app.get("/question", (req, res) => {
   let categorySelection = req.query.category;
   let diffSelection = req.query.difficulty;
   let formatSelection = req.query.format;
+  axios
+    .get(
+      `https://opentdb.com/api.php?amount=10&category=${categorySelection}&difficulty=${diffSelection}&type=${formatSelection}&`
+    )
+    .then((response) => {
+      const data = response.data.results;
+      let qNum = 1;
+      res.render("question", { data, qNum });
+    })
+    .catch((error) => {
+      res.send("error");
+    });
   //   api_helper
   //     .make_API_CALL(
   //       `https://opentdb.com/api.php?amount=10&category=${categorySelection}&difficulty=${diffSelection}&type=${formatSelection}&`
@@ -31,6 +44,10 @@ app.get("/trivia", (req, res) => {
   //     .catch((error) => {
   //       res.send(error);
   //     });
+});
+
+app.get("/nextQuestion", (req, res) => {
+  res.send(req);
 });
 
 app.listen(5500, () => {

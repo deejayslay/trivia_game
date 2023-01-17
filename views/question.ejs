@@ -15,6 +15,11 @@
   </head>
   <body>
     <h1>Trivia Game</h1>
-    <div id="game"></div>
+    <div id="game">
+      <form action="nextQuestion">
+        <p><%=qNum%>. <%= data[0].question %></p>
+        <button>Submit</button>
+      </form>
+    </div>
   </body>
 </html>
