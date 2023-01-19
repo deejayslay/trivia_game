@@ -1,8 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import StartForm from "./StartForm";
-import axios from "axios";
-
 const readyForm = document.querySelector("#readyForm");
 const titleQuestion = document.querySelector("#titleQuestion");
 const titleDesc = document.querySelector("h2");
@@ -121,6 +116,7 @@ function playGame(e, q) {
 
 readyForm.addEventListener("submit", function (e) {
   e.preventDefault();
+
   titleQuestion.remove();
   readyForm.remove();
   // load options
@@ -133,8 +129,8 @@ readyForm.addEventListener("submit", function (e) {
   startForm.style.display = "flex";
   startForm.style.flexDirection = "column";
   startForm.style.gap = "10px";
-  console.log("heyyy");
   // ReactDOM.render(<StartForm />, game);
+  game.insertAdjacentElement("beforeend", startForm);
 
   // load category option
   const categoryOptions = ["General Knowledge", "Sports", "History"];
